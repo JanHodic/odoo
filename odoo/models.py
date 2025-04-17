@@ -6188,9 +6188,10 @@ class BaseModel(metaclass=MetaModel):
     #  - the global cache is only an index to "resolve" a record 'id'.
     #
 
-    def __init__(self, env: api.Environment, ids: tuple[IdType, ...], prefetch_ids: Reversible[IdType]):
+    def __init__(self, env: api.Environment, ids: tuple[IdType, ...], prefetch_ids: Reversible[IdType]) -> None:
         """ Create a recordset instance.
 
+        :rtype: object
         :param env: an environment
         :param ids: a tuple of record ids
         :param prefetch_ids: a reversible iterable of record ids (for prefetching)

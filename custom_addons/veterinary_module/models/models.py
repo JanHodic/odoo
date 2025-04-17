@@ -1,61 +1,93 @@
 import uuid
 
+from custom_addons.veterinary_module.common.bases.models import Base
+from odoo import models, fields
+
 # Base entity
 
-class Base:
-    def __init__(self, id, name):
-        self.id = id
-        self.name = name
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "name": self.name
-        }
-
 # Animal sort
-class Animal_Sort(Base):
-    _id = UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sort_name = CharField(max_length=30)
+class AnimalSort(Base):
+    _name = 'veterinary_module.animal_sort'
+    _description = 'Animal sort model'
+    _inherit = "veterinary_module.base"
+    sort_name = fields.Char(max_length=30)
 
 #Type of sickness
-class Diagnosis_Type(models.Model):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    sort_name = models.CharField(max_length=30)
-    description = models.TextField()
+class DiagnosisType(Base):
+    _name = 'veterinary_module.diagnosis_type'
+    _description = 'Diagnosis type model'
+    _inherit = "veterinary_module.base"
+    sort_name = fields.Char(max_length=30)
+    description = fields.Char(max_length=255)
 
 # Treatment
-class Treatment(models.Model):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    #animal_id = models.ForeignKey()
-    #diagnosis_id = models.ForeignKey()
-    date_time = models.DateTimeField()
-    realised_id = models.BooleanField()
-    description = models.TextField()
+class Treatment(Base):
+    _name = 'veterinary_module.treatment'
+    _description = 'Treatment model'
+    _inherit = "veterinary_module.base"
+    date_time = fields.Datetime(fields.Datetime())
+    realised = fields.Boolean("False")
+    description = fields.Char(max_length=255)
+    medical_ids = fields.Many2many(
+        "veterinary_module.medical",
+        string="Medicals",
+        related_name="Medical",
+        ondelete="cascade",
+        )
 
-# Medicals
-class Medicals(models.Model):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date_time = models.DateTimeField()
-    treatment_medicals = models.ManyToManyField(Treatment, "treatments_medicals")
-    description = models.TextField()
+# Medical
+class Medical(Base):
+    _name = 'veterinary_module.medical'
+    _description = 'Medical model'
+    _inherit = "veterinary_module.base"
+    date_time = fields.Datetime(fields.Datetime())
+    description = fields.Char(max_length=255)
+    treatment_ids = fields.Many2many(
+        "veterinary_module.treatment",
+        string="Treatments",
+        related_name="Treatment",
+        ondelete="cascade",
+        )
 
 # Diagnosis
-class Diagnosis(models.Model):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    #animal_id = models.ForeignKey()
-    date_time = models.DateTimeField()
-    cured = models.BooleanField(False)
-    #animal_diagnosis_id = models.ManyToManyField()
-    treatments = models.ForeignKey(Treatment, related_name="diagnoses", on_delete=models.CASCADE)
-    type = models.ForeignKey(Diagnosis_Type, related_name="type", on_delete=models.CASCADE)
+class Diagnosis(Base):
+    _name = 'veterinary_module.diagnosis'
+    _description = 'Diagnosis model'
+    _inherit = "veterinary_module.base"
+    date_time = fields.Datetime(fields.Datetime())
+    cured = fields.Boolean("False")
+    description = fields.Char(max_length=255)
+    type_id = fields.Many2one(
+        "veterinary_module.diagnosis_type",
+        string="DiagnosisType",
+        related_name="diagnosis_type",
+        ondelete="cascade"
+    )
+    treatment_ids = fields.Many2one(
+        "veterinary_module.treatment",
+        string="Treatments",
+        ondelete="cascade",
+        related_name="treatment",
+        )
 
 # Animal
-class Animal(models.Model):
-    _id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    animal_name = models.CharField(max_length=100)
-    birth_date = models.DateField()
-    patient_number = models.CharField(max_length=100)
-    sterilised = models.BooleanField(False)
-    animal_sort_id = models.ForeignKey(Animal_Sort, related_name="sort", on_delete=models.CASCADE)
-    diagnoses = models.ForeignKey(Diagnosis, related_name="diagnoses", on_delete=models.CASCADE)
+class Animal(Base):
+    _name = 'veterinary_module.animal'
+    _description = 'Animal model'
+    _inherit = "veterinary_module.base"
+    animal_name = fields.Char(max_length=255)
+    birth_date = fields.Datetime(fields.Datetime())
+    patient_number = fields.Char(max_length=255)
+    sterilised = fields.Boolean("False")
+    animal_sort_id = fields.Many2one(
+        "veterinary_module.animal_sort",
+        string="AnimalSort",
+        related_name="animal_sort",
+        ondelete="cascade",
+        unique=True)
+    diagnosis_ids = fields.Many2many(
+        "veterinary_module.diagnoses",
+        string="Diagnoses",
+        related_name="diagnoses",
+        ondelete="cascade"
+    )

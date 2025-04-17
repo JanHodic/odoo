@@ -1,4 +1,4 @@
-{
+var = {
     'name': 'Veterinary',
     'version': '1.0',
     'summary': 'Veterinary module storing information about animals and their lords',

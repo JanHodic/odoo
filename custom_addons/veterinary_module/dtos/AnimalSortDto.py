@@ -4,20 +4,24 @@ from custom_addons.veterinary_module.common.bases.dtos import BaseDto
 
 
 class AnimalSortDto(BaseDto):
-    def __init__(self, id: int, name: str) -> None:
+    sort_name: str
+
+    def __init__(self, id: int, sort_name: str) -> None:
         super().__init__(id)
-        self.name: str = name
+        self.sort_name: str = sort_name
 
     def to_dict(self) -> Dict[str, str | int]:
         base = super().to_dict()
-        base.update({"name": self.name})
+        base.update({"sort_name": self.sort_name})
         return base
 
     @staticmethod
-    def from_dict(data: dict) -> "BaseDto":
-        return BaseDto(
+    def from_dict(data: dict) -> "AnimalSortDto":
+        orders_data = data.get("animal_sorts", [])
+        orders = [AnimalSortDto.from_dict(o) for o in orders_data]
+        return AnimalSortDto(
             id=data.get("id"),
-            name=data.get("name")
+            sort_name=data.get("sort_name")
         )
 
     def to_json(self):

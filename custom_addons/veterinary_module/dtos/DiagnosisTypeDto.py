@@ -1,39 +1,32 @@
+import json
+from typing import Dict, List
+
 from custom_addons.veterinary_module.common.bases.dtos import BaseDto
+from odoo.fields import Datetime
 
 
 class DiagnosisTypeDto(BaseDto):
-    _name = 'veterinary_module.diagnosis_type'
-    _description = 'Diagnosis type model'
-    _inherit = "veterinary_module.base"
-    sort_name = fields.Char(max_length=30)
-    description = fields.Char(max_length=255)
 
-    def __init__(self, id: int, cured: bool, type: DiagnosisTypeDto, description: str, treatments: List[TreatmentDto],
+    def __init__(self, id: int, description: str, sort_name: str,
                  create_date:Datetime, write_date:Datetime) -> None:
         super().__init__(id, create_date, write_date)
-        self.cured: bool = cured
-        self.type:DiagnosisTypeDto = type
+        self.sort_name: str = sort_name
         self.description:str = description
-        self.treatments:List[TreatmentDto] = treatments
 
     def to_dict(self) -> Dict[str, str | int | Datetime]:
         base = super().to_dict()
-        base.update({"cured": self.cured})
-        base.update({"type": self.type})
+        base.update({"sort_name": self.sort_name})
         base.update({"description": self.description})
-        base.update({"treatments": self.treatments})
         return base
 
     @staticmethod
-    def from_dict(data: dict) -> "DiagnosisDto":
-        return DiagnosisDto(
+    def from_dict(data: dict) -> "DiagnosisTypeDto":
+        return DiagnosisTypeDto(
             id=data.get("id"),
             create_date=data.get("create_date"),
             write_date=data.get("write_date"),
-            cured=data.get("cured"),
-            type=data.get("type"),
             description=data.get("description"),
-            treatments=data.get("treatments"),
+            sort_name=data.get("sort_name"),
         )
 
     def to_json(self):

@@ -1,43 +1,39 @@
-class TreatmentDto(BaseDto):
-    _name = 'veterinary_module.treatment'
-    _description = 'Treatment model'
-    _inherit = "veterinary_module.base"
-    date_time = fields.Datetime(fields.Datetime())
-    realised = fields.Boolean("False")
-    description = fields.Char(max_length=255)
-    medical_ids = fields.Many2many(
-        "veterinary_module.medical",
-        string="Medicals",
-        related_name="Medical",
-        ondelete="cascade",
-        )
+import json
+from typing import Dict, List
 
-    def __init__(self, id: int, cured: bool, type: DiagnosisTypeDto, description: str, treatments: List[TreatmentDto],
+from custom_addons.veterinary_module.common.bases.dtos import BaseDto
+from custom_addons.veterinary_module.dtos.MedicalDto import MedicalDto
+from odoo.fields import Datetime
+
+
+class TreatmentDto(BaseDto):
+
+    def __init__(self, id: int, date_time: Datetime, realised: bool, description: str, medicals: List[MedicalDto],
                  create_date:Datetime, write_date:Datetime) -> None:
         super().__init__(id, create_date, write_date)
-        self.cured: bool = cured
-        self.type:DiagnosisTypeDto = type
+        self.date_time: Datetime = date_time
+        self.realised:bool = realised
         self.description:str = description
-        self.treatments:List[TreatmentDto] = treatments
+        self.medicals:List[MedicalDto] = medicals
 
     def to_dict(self) -> Dict[str, str | int | Datetime]:
         base = super().to_dict()
-        base.update({"cured": self.cured})
-        base.update({"type": self.type})
+        base.update({"date_time": self.date_time})
+        base.update({"realised": self.realised})
         base.update({"description": self.description})
-        base.update({"treatments": self.treatments})
+        base.update({"medicals": self.medicals})
         return base
 
     @staticmethod
-    def from_dict(data: dict) -> "DiagnosisDto":
-        return DiagnosisDto(
+    def from_dict(data: dict) -> "MedicalDto":
+        return MedicalDto(
             id=data.get("id"),
             create_date=data.get("create_date"),
             write_date=data.get("write_date"),
-            cured=data.get("cured"),
-            type=data.get("type"),
+            realised=data.get("realised"),
+            date_time=data.get("date_time"),
             description=data.get("description"),
-            treatments=data.get("treatments"),
+            medicals=data.get("medicals"),
         )
 
     def to_json(self):

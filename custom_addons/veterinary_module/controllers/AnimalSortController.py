@@ -36,7 +36,7 @@ class ApiController(http.Controller):
     def update_animal_sort(self, id:int):
         data = request.jsonrequest
         name = data.get('name')
-        updated = self.service.update_animal_sort (id, name)
+        updated = self.service.update_animal_sort(id, name)
         if updated:
             return updated.to_dict()
         return Response("Not found", status=404)

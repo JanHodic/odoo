@@ -1,14 +1,15 @@
 import uuid
 
+from custom_addons.veterinary_module.common.bases.BaseRepository import BaseRepository
 from custom_addons.veterinary_module.models.models import AnimalSort
 from typing import List, Optional
 
 
-class AnimalSortRepository:
+class AnimalSortRepository(BaseRepository[AnimalSort]):
     def __init__(self, env)->None:
         self.env = env
 
-    def get_all_animal_sorts(self, limit=10)->List[AnimalSort]:
+    def get_all_animal_sorts(self)->List[AnimalSort]:
         records = self.env['res.animal_sorts'].sudo().search([])
         return [
             AnimalSort(

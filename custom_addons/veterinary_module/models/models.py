@@ -1,9 +1,5 @@
-import uuid
-
 from custom_addons.veterinary_module.common.bases.models import Base
-from odoo import models, fields
-
-# Base entity
+from odoo import fields
 
 # Animal sort
 class AnimalSort(Base):

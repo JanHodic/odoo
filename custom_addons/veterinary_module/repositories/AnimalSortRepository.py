@@ -9,7 +9,7 @@ class AnimalSortRepository:
         self.env = env
 
     def get_all_animal_sorts(self, limit=10)->List[AnimalSort]:
-        records = self.env['res.animal_sorts'].sudo().search([], limit=limit)
+        records = self.env['res.animal_sorts'].sudo().search([])
         return [
             AnimalSort(
                 p.id,

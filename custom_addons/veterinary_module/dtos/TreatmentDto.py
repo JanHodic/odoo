@@ -25,8 +25,8 @@ class TreatmentDto(BaseDto):
         return base
 
     @staticmethod
-    def from_dict(data: dict) -> "MedicalDto":
-        return MedicalDto(
+    def from_dict(data: dict) -> "TreatmentDto":
+        return TreatmentDto(
             id=data.get("id"),
             create_date=data.get("create_date"),
             write_date=data.get("write_date"),

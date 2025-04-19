@@ -37,6 +37,7 @@ class Medical(Base):
     _description = 'Medical model'
     _inherit = "veterinary_module.base"
     date_time = fields.Datetime(fields.Datetime())
+    name = fields.Char(max_length=255)
     description = fields.Char(max_length=255)
     treatment_ids = fields.Many2many(
         "veterinary_module.treatment",

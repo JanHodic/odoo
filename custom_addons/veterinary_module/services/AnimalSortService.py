@@ -12,31 +12,28 @@ class AnimalSortService:
         self.repo: AnimalSortRepository = AnimalSortRepository(env)
 
     def list_animal_sorts(self) -> List[AnimalSortDto]:
-        return animal_sort_from_dbs_to_dtos(self.repo.get_all_animal_sorts(self.repo))
+        return animal_sort_from_dbs_to_dtos(self.repo.get_all())
 
     def get_animal_sort_by_name(self, name: str) -> Optional[AnimalSortDto]:
         return animal_sort_from_db_to_dto(
-            self.repo
-            .get_animal_sort_by_name(name)
+            self.repo.get_by_name(name),
         )
 
     def get_animal_sort_by_id(self, id: int) -> Optional[AnimalSortDto]:
+
         return animal_sort_from_db_to_dto(
-            self.repo
-            .get_animal_sort_by_id(id)
+            self.repo.get_by_id(id)
         )
 
     def create_animal_sort(self, name: str) -> AnimalSortDto:
         return animal_sort_from_db_to_dto(
-            self.repo
-            .create_animal_sort(name)
+            self.repo.create({ "id": 0 ,"sort_name": name })
         )
 
     def update_animal_sort(self, id: int, name: str) -> Optional[AnimalSortDto]:
         return animal_sort_from_db_to_dto(
-            self.repo
-            .update_animal_sort(id, name)
+            self.repo.update({ "id": id, "sort_name": name })
         )
 
     def delete_animal_sort(self, id: int) -> bool:
-        return  self.repo.delete_animal_sort(id)
+        return self.repo.delete(id)

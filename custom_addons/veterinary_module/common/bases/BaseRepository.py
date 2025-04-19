@@ -1,6 +1,6 @@
 from typing import List, Optional, TypeVar, Generic, Callable, Any
 
-T = TypeVar('T')  # DTO type
+T = TypeVar('T')  # DBO type
 
 
 class BaseRepository(Generic[T]):

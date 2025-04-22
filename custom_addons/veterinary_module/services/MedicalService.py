@@ -1,39 +1,39 @@
 from typing import List, Optional
 
-from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
+from custom_addons.veterinary_module.dtos.MedicalDto import MedicalDto
 from custom_addons.veterinary_module.mappings.DbDtoMappings import animal_sort_from_db_to_dto, \
     animal_sort_from_dbs_to_dtos
-from custom_addons.veterinary_module.repositories.AnimalSortRepository import AnimalSortRepository
+from custom_addons.veterinary_module.repositories.MedicalRepository import MedicalRepository
 from odoo.api import Environment
 
 
-class AnimalSortService:
+class MedicalService:
     def __init__(self, env: Environment) -> None:
-        self.repo: AnimalSortRepository = AnimalSortRepository(env)
+        self.repo: MedicalRepository = MedicalRepository(env)
 
-    def list_animal_sorts(self) -> List[AnimalSortDto]:
+    def list(self) -> List[MedicalDto]:
         return animal_sort_from_dbs_to_dtos(self.repo.get_all())
 
-    def get_animal_sort_by_name(self, name: str) -> Optional[AnimalSortDto]:
+    def get_by_name(self, name: str) -> Optional[MedicalDto]:
         return animal_sort_from_db_to_dto(
             self.repo.get_by_name(name),
         )
 
-    def get_animal_sort_by_id(self, id: int) -> Optional[AnimalSortDto]:
+    def get_by_id(self, id: int) -> Optional[MedicalDto]:
 
         return animal_sort_from_db_to_dto(
             self.repo.get_by_id(id)
         )
 
-    def create_animal_sort(self, name: str) -> AnimalSortDto:
+    def create(self, name: str) -> MedicalDto:
         return animal_sort_from_db_to_dto(
             self.repo.create({ "id": 0 ,"sort_name": name })
         )
 
-    def update_animal_sort(self, id: int, name: str) -> Optional[AnimalSortDto]:
+    def update(self, id: int, name: str) -> Optional[MedicalDto]:
         return animal_sort_from_db_to_dto(
             self.repo.update({ "id": id, "sort_name": name })
         )
 
-    def delete_animal_sort(self, id: int) -> bool:
+    def delete(self, id: int) -> bool:
         return self.repo.delete(id)

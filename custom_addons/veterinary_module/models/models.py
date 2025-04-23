@@ -75,7 +75,7 @@ class Animal(Base):
     animal_name = fields.Char(max_length=255)
     birth_date = fields.Datetime(fields.Datetime())
     patient_number = fields.Char(max_length=255)
-    sterilised = fields.Boolean("False")
+    sterilised = fields.Boolean()
     animal_sort_id = fields.Many2one(
         "veterinary_module.animal_sort",
         string="AnimalSort",

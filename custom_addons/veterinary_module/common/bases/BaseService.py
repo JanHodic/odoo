@@ -3,7 +3,7 @@ from typing import List, Optional, TypeVar
 from custom_addons.veterinary_module.common.bases.BaseRepository import BaseRepository
 from custom_addons.veterinary_module.common.bases.dtos import BaseDto
 from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
-from custom_addons.veterinary_module.mappings.DbDtoMappings import animal_sort_from_db_to_dto, \
+from custom_addons.veterinary_module.mappings.AnimalSortDbDtoMappings import animal_sort_from_db_to_dto, \
     animal_sort_from_dbs_to_dtos
 from custom_addons.veterinary_module.repositories.AnimalSortRepository import AnimalSortRepository
 from odoo.api import Environment

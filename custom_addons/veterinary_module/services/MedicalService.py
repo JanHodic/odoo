@@ -1,7 +1,7 @@
 from typing import List, Optional
 
 from custom_addons.veterinary_module.dtos.MedicalDto import MedicalDto
-from custom_addons.veterinary_module.mappings.DbDtoMappings import animal_sort_from_db_to_dto, \
+from custom_addons.veterinary_module.mappings.AnimalSortDbDtoMappings import animal_sort_from_db_to_dto, \
     animal_sort_from_dbs_to_dtos
 from custom_addons.veterinary_module.repositories.MedicalRepository import MedicalRepository
 from odoo.api import Environment

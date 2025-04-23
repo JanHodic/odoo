@@ -16,6 +16,10 @@ class AnimalDto(BaseDto):
                  diagnosis: str,
                  create_date:Datetime=None,
                  write_date:Datetime=None) -> None:
+            """
+
+            :rtype: object
+            """
             super().__init__(id, create_date, write_date)
             self.animal_name:str = animal_name
             self.birth_date:Datetime = birth_date

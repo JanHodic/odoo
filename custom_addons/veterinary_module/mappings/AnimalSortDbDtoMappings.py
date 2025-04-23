@@ -1,0 +1,27 @@
+from typing import List
+
+from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
+from custom_addons.veterinary_module.models.models import AnimalSort
+
+
+def animal_sort_from_db_to_dto(dto: AnimalSort) ->AnimalSortDto:
+    return AnimalSortDto(
+        id=dto.id,
+        sort_name=dto.sort_name
+    )
+
+def animal_sort_from_dto_to_db(do: AnimalSortDto) ->object:
+    return object(
+    )
+
+def animal_sort_from_dtos_to_dbs(dtos: List[AnimalSortDto]) ->List[object]:
+    list = []
+    for dto in dtos:
+        list.append(animal_sort_from_dto_to_db(dto))
+    return list
+
+def animal_sort_from_dbs_to_dtos(dos: List[AnimalSort]) ->List[object]:
+    list = []
+    for do in dos:
+        list.append(animal_sort_from_db_to_dto(do))
+    return list

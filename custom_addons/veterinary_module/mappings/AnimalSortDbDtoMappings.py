@@ -11,8 +11,10 @@ def animal_sort_from_db_to_dto(dto: AnimalSort) ->AnimalSortDto:
     )
 
 def animal_sort_from_dto_to_db(do: AnimalSortDto) ->object:
-    return object(
-    )
+    result:object = object()
+    result.id = do.id
+    result.sort_name = do.sort_name
+    return result
 
 def animal_sort_from_dtos_to_dbs(dtos: List[AnimalSortDto]) ->List[object]:
     list = []
@@ -20,8 +22,8 @@ def animal_sort_from_dtos_to_dbs(dtos: List[AnimalSortDto]) ->List[object]:
         list.append(animal_sort_from_dto_to_db(dto))
     return list
 
-def animal_sort_from_dbs_to_dtos(dos: List[AnimalSort]) ->List[object]:
-    list = []
+def animal_sort_from_dbs_to_dtos(dos: List[AnimalSort]) ->List[AnimalSortDto]:
+    result = []
     for do in dos:
-        list.append(animal_sort_from_db_to_dto(do))
-    return list
+        result.append(animal_sort_from_db_to_dto(do))
+    return result

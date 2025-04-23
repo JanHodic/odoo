@@ -48,6 +48,10 @@ class Medical(Base):
 
 # Diagnosis
 class Diagnosis(Base):
+    def __init__(self, env: api.Environment, ids: tuple[IdType, ...], prefetch_ids: Reversible[IdType]):
+        super().__init__(env, ids, prefetch_ids)
+        self.type = None
+
     _name = 'veterinary_module.diagnosis'
     _description = 'Diagnosis model'
     _inherit = "veterinary_module.base"

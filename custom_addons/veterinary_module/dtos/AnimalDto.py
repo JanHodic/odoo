@@ -13,7 +13,7 @@ class AnimalDto(BaseDto):
                  patient_number: str,
                  sterilised: bool,
                  animal_sort: str,
-                 diagnosis: str,
+                 diagnoses: [],
                  create_date:Datetime=None,
                  write_date:Datetime=None) -> None:
             """
@@ -26,7 +26,7 @@ class AnimalDto(BaseDto):
             self.patient_number:str = patient_number
             self.sterilised:bool = sterilised
             self.animal_sort:str = animal_sort
-            self.diagnosis:str = diagnosis
+            self.diagnoses:[] = diagnoses
 
     @staticmethod
     def from_dict(data: dict) -> "AnimalDto":
@@ -39,7 +39,7 @@ class AnimalDto(BaseDto):
                     patient_number=data.get("patient_number"),
                     sterilised=data.get("sterilised"),
                     animal_sort=data.get("animal_sort"),
-                    diagnosis=data.get("diagnosis"),
+                    diagnoses=data.get("diagnoses"),
             )
 
     def to_dict(self)->Dict[str, str | int | Datetime]:
@@ -49,7 +49,7 @@ class AnimalDto(BaseDto):
             base.update({"patient_number": self.patient_number})
             base.update({"sterilised": self.sterilised})
             base.update({"animal_sort": self.animal_sort})
-            base.update({"diagnosis": self.diagnosis})
+            base.update({"diagnoses": self.diagnoses})
             return base
 
     def to_json(self):

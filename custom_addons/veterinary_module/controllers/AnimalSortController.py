@@ -11,37 +11,37 @@ class ApiController(http.Controller):
 
     @http.route('/api/animal_sorts', type='http', auth='public', methods=['GET'], csrf=False)
     def get_animal_sorts(self):
-        sorts = self.service.list_animal_sorts()
+        sorts = self.service.list()
         data = [p.to_dict() for p in sorts]
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/animal_sorts/<int:id>', type='http', auth='public', methods=['GET'], csrf=False)
     def get_animal_sort_by_id(self, id:int):
-        data = self.service.get_animal_sort_by_id(id)
+        data = self.service.get_by_id(id)
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/animal_sorts/name', type='http', auth='public', methods=['GET'], csrf=False)
     def get_animal_sort_by_name(self, name:str):
-        data = self.service.get_animal_sort_by_name(name)
+        data = self.service.get_by_name(name)
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/animal_sorts', type='json', auth='public', methods=['POST'], csrf=False)
     def create_animal_sort(self):
         data = request.jsonrequest
         name = data.get('name')
-        sort = self.service.create_animal_sort(name)
+        sort = self.service.create(name)
         return sort.to_dict()
 
     @http.route('/api/animal_sorts/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
     def update_animal_sort(self, id:int):
         data = request.jsonrequest
         name = data.get('name')
-        updated = self.service.update_animal_sort(id, name)
+        updated = self.service.update(id, name)
         if updated:
             return updated.to_dict()
         return Response("Not found", status=404)
 
     @http.route('/api/animal_sorts/<int:id>', type='json', auth='public', methods=['DELETE'], csrf=False)
     def delete_animal_sort(self, id:int):
-        success = self.service.delete_animal_sort(id)
+        success = self.service.delete(id)
         return {"deleted": success}

@@ -1,29 +1,30 @@
 from typing import List
+from custom_addons.veterinary_module.dtos.DiagnosisTypeDto import DiagnosisTypeDto
+from custom_addons.veterinary_module.models.models import DiagnosisType
 
-from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
-from custom_addons.veterinary_module.models.models import AnimalSort
 
-
-def animal_sort_from_db_to_dto(dto: AnimalSort) ->AnimalSortDto:
-    return AnimalSortDto(
+def diagnosis_type_from_db_to_dto(dto: DiagnosisType) ->DiagnosisTypeDto:
+    return DiagnosisTypeDto(
         id=dto.id,
-        sort_name=dto.sort_name
+        description=dto.description,
+        sort_name=dto.sort_name,
+        create_date=dto.create_date,
+        write_date=dto.write_date,
     )
 
-def animal_sort_from_dto_to_db(do: AnimalSortDto) ->AnimalSort:
-    return AnimalSort(
-        do.id,
-        do.sort_name
-    )
+def diagnosis_type_from_dto_to_db(do: DiagnosisTypeDto) ->object:
+    result:object = object()
+    result.id = do.id
+    return result
 
-def animal_sort_from_dtos_to_dbs(dtos: List[AnimalSortDto]) ->List[AnimalSort]:
+def diagnosis_type_from_dtos_to_dbs(dtos: List[DiagnosisTypeDto]) ->List[object]:
     list = []
     for dto in dtos:
-        list.append(animal_sort_from_dto_to_db(dto))
+        list.append(diagnosis_type_from_dto_to_db(dto))
     return list
 
-def animal_sort_from_dbs_to_dtos(dos: List[AnimalSort]) ->List[AnimalSortDto]:
+def diagnosis_type_from_dbs_to_dtos(dos: List[DiagnosisType]) ->List[DiagnosisTypeDto]:
     list = []
     for do in dos:
-        list.append(animal_sort_from_db_to_dto(do))
+        list.append(diagnosis_type_from_db_to_dto(do))
     return list

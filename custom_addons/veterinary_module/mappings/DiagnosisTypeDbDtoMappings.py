@@ -15,16 +15,20 @@ def diagnosis_type_from_db_to_dto(dto: DiagnosisType) ->DiagnosisTypeDto:
 def diagnosis_type_from_dto_to_db(do: DiagnosisTypeDto) ->object:
     result:object = object()
     result.id = do.id
+    result.description = do.description
+    result.sort_name = do.sort_name
+    result.create_date = do.create_date
+    result.write_date = do.write_date
     return result
 
 def diagnosis_type_from_dtos_to_dbs(dtos: List[DiagnosisTypeDto]) ->List[object]:
-    list = []
+    result = []
     for dto in dtos:
-        list.append(diagnosis_type_from_dto_to_db(dto))
-    return list
+        result.append(diagnosis_type_from_dto_to_db(dto))
+    return result
 
 def diagnosis_type_from_dbs_to_dtos(dos: List[DiagnosisType]) ->List[DiagnosisTypeDto]:
-    list = []
+    result = []
     for do in dos:
-        list.append(diagnosis_type_from_db_to_dto(do))
-    return list
+        result.append(diagnosis_type_from_db_to_dto(do))
+    return result

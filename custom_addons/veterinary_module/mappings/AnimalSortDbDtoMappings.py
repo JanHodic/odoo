@@ -17,10 +17,10 @@ def animal_sort_from_dto_to_db(do: AnimalSortDto) ->object:
     return result
 
 def animal_sort_from_dtos_to_dbs(dtos: List[AnimalSortDto]) ->List[object]:
-    list = []
+    result = []
     for dto in dtos:
-        list.append(animal_sort_from_dto_to_db(dto))
-    return list
+        result.append(animal_sort_from_dto_to_db(dto))
+    return result
 
 def animal_sort_from_dbs_to_dtos(dos: List[AnimalSort]) ->List[AnimalSortDto]:
     result = []

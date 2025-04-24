@@ -31,13 +31,13 @@ def animal_from_dto_to_db(do: AnimalDto, animal_sort_id:int, diagnoses:[]) ->obj
     return result
 
 def animal_from_dtos_to_dbs(dtos: List[AnimalDto]) ->List[object]:
-    list = []
+    result = []
     for dto in dtos:
-        list.append(animal_from_dto_to_db(dto))
-    return list
+        result.append(animal_from_dto_to_db(dto, 0, []))
+    return result
 
 def animal_from_dbs_to_dtos(dos: List[Animal]) ->List[AnimalDto]:
-    list = []
+    result = []
     for do in dos:
-        list.append(animal_from_db_to_dto(do))
-    return list
+        result.append(animal_from_db_to_dto(do))
+    return result

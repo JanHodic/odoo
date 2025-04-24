@@ -4,6 +4,7 @@ from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
 from custom_addons.veterinary_module.dtos.DiagnosisTypeDto import DiagnosisTypeDto
 from custom_addons.veterinary_module.mappings.AnimalSortDbDtoMappings import animal_sort_from_db_to_dto
 from custom_addons.veterinary_module.mappings.DiagnosisDbDtoMappings import diagnosis_from_dbs_to_dtos
+from custom_addons.veterinary_module.mappings.DiagnosisTypeDbDtoMappings import diagnosis_type_from_dbs_to_dtos
 from custom_addons.veterinary_module.repositories.DiagnosisTypeRepository import DiagnosisTypeRepository
 from odoo.api import Environment
 
@@ -12,8 +13,8 @@ class DiagnosisTypeService:
     def __init__(self, env: Environment) -> None:
         self.repo: DiagnosisTypeRepository = DiagnosisTypeRepository(env)
 
-    def list(self) -> list[AnimalSortDto]:
-        return diagnosis_from_dbs_to_dtos(self.repo.get_all())
+    def list(self) -> list[DiagnosisTypeDto]:
+        return diagnosis_type_from_dbs_to_dtos(self.repo.get_all())
 
     def get_by_name(self, name: str) -> Optional[DiagnosisTypeDto]:
         return animal_sort_from_db_to_dto(

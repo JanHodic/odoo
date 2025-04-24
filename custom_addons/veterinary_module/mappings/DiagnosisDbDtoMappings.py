@@ -2,7 +2,7 @@ from typing import List
 
 from custom_addons.veterinary_module.dtos.AnimalSortDto import AnimalSortDto
 from custom_addons.veterinary_module.dtos.DiagnosisDto import DiagnosisDto
-from custom_addons.veterinary_module.models.models import AnimalSort, Diagnosis
+from custom_addons.veterinary_module.models.models import Diagnosis
 
 
 def diagnosis_from_db_to_dto(dto: Diagnosis) ->DiagnosisDto:
@@ -24,7 +24,7 @@ def diagnosis_from_dto_to_db(do: DiagnosisDto) ->object:
     result.cured = do.cured
     result.type = do.type
     result.description = do.description
-    result.treatments = do.treatments
+    result.treatments = []
     return result
 
 def diagnosis_from_dtos_to_dbs(dtos: List[DiagnosisDto]) ->List[object]:

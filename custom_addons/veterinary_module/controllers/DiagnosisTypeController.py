@@ -38,6 +38,7 @@ class ApiController(http.Controller):
     def update_diagnosis_types(self, id:int):
         data = request.jsonrequest
         name = data.get('name')
+
         updated = self.service.update(id, name)
         if updated:
             return updated.to_dict()

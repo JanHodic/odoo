@@ -21,17 +21,22 @@ class ApiController(http.Controller):
         data = self.service.get_by_id(id)
         return Response(json.dumps({"data": data}), content_type='application/json')
 
-    @http.route('/api/diagnoses/name', type='http', auth='public', methods=['GET'], csrf=False)
-    def get_diagnoses_by_name(self, name:str):
-        data = self.service.get_by_name(name)
-        return Response(json.dumps({"data": data}), content_type='application/json')
-
     @http.route('/api/diagnoses', type='json', auth='public', methods=['POST'], csrf=False)
     def create_diagnosis(self):
         data = request.jsonrequest
         name = data.get('name')
-        sort = self.service.create(name)
-        return sort.to_dict()
+        cured = data.get('cured')
+        type = data.get('type')
+        description = data.get('description')
+        treatments = data.get('treatments')
+        diag = self.service.create({
+            "name": name,
+            "cured": cured,
+            "type": type,
+            "description": description,
+            "treatments": treatments
+        })
+        return diag.to_dict()
 
     @http.route('/api/diagnoses/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
     def update_diagnosis(self, id:int):

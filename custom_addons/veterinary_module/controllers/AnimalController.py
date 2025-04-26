@@ -1,3 +1,4 @@
+from custom_addons.veterinary_module.dtos.AnimalDto import AnimalDto
 from custom_addons.veterinary_module.services.AnimalService import AnimalService
 from odoo import http
 from odoo.api import Environment
@@ -26,19 +27,17 @@ class ApiController(http.Controller):
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/animals', type='json', auth='public', methods=['POST'], csrf=False)
-    def create_animal(self):
-        data = request.jsonrequest
-        name = data.get('name')
-        sort = self.service.create(name)
-        return sort.to_dict()
+    def create_animal(self, **kwargs):
+        dto = AnimalDto.from_dict(kwargs)
+        sort = self.service.create(dto.to_dict())
+        return sort
 
     @http.route('/api/animals/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
-    def update_animal(self, id:int):
-        data = request.jsonrequest
-        name = data.get('name')
-        updated = self.service.update(id, name)
+    def update_animal(self, id:int, **kwargs):
+        dto = AnimalDto.from_dict(kwargs)
+        updated = self.service.update(id, dto.to_dict())
         if updated:
-            return updated.to_dict()
+            return updated
         return Response("Not found", status=404)
 
     @http.route('/api/animals/<int:id>', type='json', auth='public', methods=['DELETE'], csrf=False)

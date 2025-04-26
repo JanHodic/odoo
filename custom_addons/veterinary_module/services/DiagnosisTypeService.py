@@ -33,10 +33,10 @@ class DiagnosisTypeService:
             })
         )
 
-    def update(self, diag_type: DiagnosisTypeDto) -> Optional[DiagnosisTypeDto]:
+    def update(self, id:int, diag_type: DiagnosisTypeDto) -> Optional[DiagnosisTypeDto]:
         return diagnosis_type_from_db_to_dto(
             self.repo.update(
-                diag_type.id,
+                id,
                 {
                     "id": diag_type.id,
                     "sort_name": diag_type.sort_name,

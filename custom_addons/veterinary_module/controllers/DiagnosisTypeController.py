@@ -29,18 +29,15 @@ class ApiController(http.Controller):
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/diagnosis_types', type='json', auth='public', methods=['POST'], csrf=False)
-    def create_diagnosis_type(self, diagnosis_type:DiagnosisTypeDto):
-        data = request.jsonrequest
-        dto = data.get('diagnosis_type')
+    def create_diagnosis_type(self, **kwargs):
+        dto = DiagnosisTypeDto.from_dict(kwargs)
         sort = self.service.create(dto)
         return sort.to_dict()
 
     @http.route('/api/diagnoses/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
-    def update_diagnosis_types(self, id:int, diagnosis_type:DiagnosisTypeDto):
-        data = request.jsonrequest
-        dto = data.get('diagnosis_type')
-
-        updated = self.service.update(id, dto)
+    def update_diagnosis_types(self, id:int, **kwargs):
+        dto = DiagnosisTypeDto.from_dict(kwargs)
+        updated = self.service.update(id ,dto)
         if updated:
             return updated.to_dict()
         return Response("Not found", status=404)

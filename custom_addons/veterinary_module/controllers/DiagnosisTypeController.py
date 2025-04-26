@@ -1,3 +1,4 @@
+from custom_addons.veterinary_module.dtos.DiagnosisTypeDto import DiagnosisTypeDto
 from custom_addons.veterinary_module.services.AnimalSortService import AnimalSortService
 from custom_addons.veterinary_module.services.DiagnosisService import DiagnosisService
 from custom_addons.veterinary_module.services.DiagnosisTypeService import DiagnosisTypeService
@@ -28,18 +29,18 @@ class ApiController(http.Controller):
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/diagnosis_types', type='json', auth='public', methods=['POST'], csrf=False)
-    def create_diagnosis_type(self):
+    def create_diagnosis_type(self, diagnosis_type:DiagnosisTypeDto):
         data = request.jsonrequest
-        name = data.get('name')
-        sort = self.service.create(name)
+        dto = data.get('diagnosis_type')
+        sort = self.service.create(dto)
         return sort.to_dict()
 
     @http.route('/api/diagnoses/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
-    def update_diagnosis_types(self, id:int):
+    def update_diagnosis_types(self, id:int, diagnosis_type:DiagnosisTypeDto):
         data = request.jsonrequest
-        name = data.get('name')
+        dto = data.get('diagnosis_type')
 
-        updated = self.service.update(id, name)
+        updated = self.service.update(id, dto)
         if updated:
             return updated.to_dict()
         return Response("Not found", status=404)

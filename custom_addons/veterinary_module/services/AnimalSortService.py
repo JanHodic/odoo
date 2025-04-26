@@ -32,7 +32,7 @@ class AnimalSortService:
 
     def update(self, id: int, name: str) -> Optional[AnimalSortDto]:
         return animal_sort_from_db_to_dto(
-            self.repo.update({ "id": id, "sort_name": name })
+            self.repo.update(id, { "id": id, "sort_name": name })
         )
 
     def delete(self, id: int) -> bool:

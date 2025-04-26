@@ -22,7 +22,7 @@ class ApiController(http.Controller):
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/diagnoses', type='json', auth='public', methods=['POST'], csrf=False)
-    def create_diagnosis(self):
+    def create_diagnosis(self, **kwargs):
         data = request.jsonrequest
         name = data.get('name')
         cured = data.get('cured')
@@ -39,7 +39,7 @@ class ApiController(http.Controller):
         return diag.to_dict()
 
     @http.route('/api/diagnoses/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
-    def update_diagnosis(self, id:int):
+    def update_diagnosis(self, id:int, **kwargs):
         data = request.jsonrequest
         name = data.get('name')
         updated = self.service.update(id, name)

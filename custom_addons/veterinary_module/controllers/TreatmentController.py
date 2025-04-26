@@ -1,3 +1,4 @@
+from custom_addons.veterinary_module.dtos.TreatmentDto import TreatmentDto
 from custom_addons.veterinary_module.services.TreatmentService import TreatmentService
 from odoo import http
 from odoo.http import Response, request
@@ -25,19 +26,17 @@ class ApiController(http.Controller):
         return Response(json.dumps({"data": data}), content_type='application/json')
 
     @http.route('/api/treatments', type='json', auth='public', methods=['POST'], csrf=False)
-    def create_treatment(self):
-        data = request.jsonrequest
-        name = data.get('name')
-        sort = self.service.create(name)
+    def create_treatment(self, **kwargs):
+        dto = TreatmentDto.from_dict(kwargs)
+        sort = self.service.create(dto.to_dict())
         return sort.to_dict()
 
     @http.route('/api/treatments/<int:id>', type='json', auth='public', methods=['PUT'], csrf=False)
-    def update_treatment(self, id:int):
-        data = request.jsonrequest
-        name = data.get('name')
-        updated = self.service.update(id, name)
+    def update_treatment(self, id:int, **kwargs):
+        dto = TreatmentDto.from_dict(kwargs)
+        updated = self.service.update(id, dto.to_dict())
         if updated:
-            return updated.to_dict()
+            return updated
         return Response("Not found", status=404)
 
     @http.route('/api/treatments/<int:id>', type='json', auth='public', methods=['DELETE'], csrf=False)

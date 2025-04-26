@@ -1,8 +1,6 @@
 from typing import List
 
 from custom_addons.veterinary_module.dtos.AnimalDto import AnimalDto
-from custom_addons.veterinary_module.dtos.DiagnosisDto import DiagnosisDto
-
 from custom_addons.veterinary_module.models.models import Animal, Diagnosis
 
 def animal_from_db_to_dto(dto: Animal, diagnoses:[], animal_sort_name:str) ->AnimalDto:

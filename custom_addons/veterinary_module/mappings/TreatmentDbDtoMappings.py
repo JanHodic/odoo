@@ -5,7 +5,7 @@ from custom_addons.veterinary_module.dtos.TreatmentDto import TreatmentDto
 from custom_addons.veterinary_module.models.models import AnimalSort, Treatment
 
 
-def treatment_from_db_to_dto(dto: Treatment) ->TreatmentDto:
+def treatment_from_db_to_dto(dto: Treatment, medicals:[]) ->TreatmentDto:
     return TreatmentDto(
         id=dto.id,
         create_date=dto.create_date,
@@ -13,7 +13,7 @@ def treatment_from_db_to_dto(dto: Treatment) ->TreatmentDto:
         realised=dto.realised,
         date_time=dto.date_time,
         description=dto.description,
-        medicals=dto.medical_ids,
+        medicals=medicals,
     )
 
 def treatment_from_dto_to_db(do: TreatmentDto) ->object:

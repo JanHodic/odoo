@@ -2,6 +2,8 @@ from typing import List, Optional
 
 from custom_addons.veterinary_module.dtos.TreatmentDto import TreatmentDto
 from custom_addons.veterinary_module.mappings.TreatmentDbDtoMappings import treatment_from_db_to_dto, treatment_from_dbs_to_dtos
+from custom_addons.veterinary_module.models.models import Treatment, Medical
+from custom_addons.veterinary_module.repositories.MedicalRepository import MedicalRepository
 from custom_addons.veterinary_module.repositories.TreatmentRepository import TreatmentRepository
 from odoo.api import Environment
 
@@ -9,14 +11,21 @@ from odoo.api import Environment
 class TreatmentService:
     def __init__(self, env: Environment) -> None:
         self.repo: TreatmentRepository = TreatmentRepository(env)
+        self.repoMedical: MedicalRepository = MedicalRepository(env)
 
     def list(self) -> List[TreatmentDto]:
         return treatment_from_dbs_to_dtos(self.repo.get_all())
 
     def get_by_id(self, id: int) -> Optional[TreatmentDto]:
-
+        treatment:Treatment = self.repo.get_by_id(id)
+        medicals:[] = []
+        if treatment:
+            for m in treatment.medical_ids:
+                medic:Medical = self.repoMedical.get_by_id(m)
+                medicals.append(medic)
         return treatment_from_db_to_dto(
-            self.repo.get_by_id(id)
+            treatment,
+            medicals
         )
 
     def create(self, treatment_dto:dict) -> object:

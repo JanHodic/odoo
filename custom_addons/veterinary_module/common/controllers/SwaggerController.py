@@ -10,7 +10,7 @@ class SwaggerController(http.Controller):
             "info": {
                 "title": "Veterinary API",
                 "version": "1.0.0",
-                "description": "Swagger API pro Veterinary Module (Animal, Diagnosis, Treatment, Medical, DiagnosisType, AnimalSort)",
+                "description": "Swagger API for Veterinary Module (Animal, Diagnosis, Treatment, Medical, DiagnosisType, AnimalSort)",
             },
             "paths": {
                 "/api/animals": {

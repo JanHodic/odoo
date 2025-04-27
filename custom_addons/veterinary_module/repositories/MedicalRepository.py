@@ -1,12 +1,12 @@
 from custom_addons.veterinary_module.common.bases.BaseRepository import BaseRepository
-from custom_addons.veterinary_module.models.models import AnimalSort, Medical
-from typing import Optional, List
+from custom_addons.veterinary_module.models.models import Medical
+from typing import Optional
 
 
 class MedicalRepository(BaseRepository[Medical]):
 
     def __init__(self, env):
-        super().__init__(env['veterinary_module.medicals'], "Medicals", self.to_dbo)
+        super().__init__(env['veterinary_module.medicals'], "Medical", self.to_dbo)
 
     @staticmethod
     def to_dbo(dto: Medical) -> dict:

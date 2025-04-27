@@ -1,8 +1,7 @@
 from typing import List, Optional
 
 from custom_addons.veterinary_module.dtos.AnimalDto import AnimalDto
-from custom_addons.veterinary_module.mappings.AnimalDbDtoMappings import animal_from_dbs_to_dtos, animal_from_db_to_dto, \
-    animal_from_dto_to_db
+from custom_addons.veterinary_module.mappings.AnimalDbDtoMappings import animal_from_dbs_to_dtos, animal_from_db_to_dto
 from custom_addons.veterinary_module.models.models import Animal, Diagnosis
 from custom_addons.veterinary_module.repositories.AnimalRepository import AnimalRepository
 from custom_addons.veterinary_module.repositories.AnimalSortRepository import AnimalSortRepository
@@ -38,7 +37,7 @@ class AnimalService:
         diagnoses:List[Diagnosis] =[]
         animal_sort_name: str = self.sortRepo.get_by_id(animal.animal_sort_id).sort_name
         for d in animal.diagnosis_ids:
-            diag:Diagnosis| None = self.diagRepo.get_by_id(id)
+            diag:Diagnosis| None = self.diagRepo.get_by_id(d)
             if diag: diagnoses.append(diag)
 
         return animal_from_db_to_dto(

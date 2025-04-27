@@ -34,10 +34,10 @@ class SwaggerController(http.Controller):
                                             "birth_date": {"type": "string", "format": "date-time"},
                                             "patient_number": {"type": "string"},
                                             "sterilised": {"type": "boolean"},
-                                            "animal_sort_id": {"type": "integer"},
-                                            "diagnosis_ids": {
+                                            "sort": {"type": "object"},
+                                            "diagnoses": {
                                                 "type": "array",
-                                                "items": {"type": "integer"}
+                                                "items": {"type": "object"}
                                             }
                                         },
                                         "required": ["animal_name", "birth_date"]
@@ -105,9 +105,9 @@ class SwaggerController(http.Controller):
                                             "date_time": {"type": "string", "format": "date-time"},
                                             "realised": {"type": "boolean"},
                                             "description": {"type": "string"},
-                                            "medical_ids": {
+                                            "medicals": {
                                                 "type": "array",
-                                                "items": {"type": "integer"}
+                                                "items": {"type": "object"}
                                             }
                                         }
                                     }
@@ -131,7 +131,7 @@ class SwaggerController(http.Controller):
                                             "description": {"type": "string"},
                                             "treatment_ids": {
                                                 "type": "array",
-                                                "items": {"type": "integer"}
+                                                "items": {"type": "object"}
                                             }
                                         }
                                     }
@@ -153,8 +153,8 @@ class SwaggerController(http.Controller):
                                             "date_time": {"type": "string", "format": "date-time"},
                                             "cured": {"type": "boolean"},
                                             "description": {"type": "string"},
-                                            "type_id": {"type": "integer"},
-                                            "treatment_ids": {"type": "integer"}
+                                            "type": {"type": "object"},
+                                            "treatments": {"type": "object"}
                                         }
                                     }
                                 }
